@@ -24,6 +24,10 @@ let gigaChatToken = {
   expiresAt: 0,
 };
 
+if (process.env.GIGACHAT_IGNORE_TLS_ERRORS === 'true') {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+}
+
 app.use(cors());
 app.use(express.json({ limit: '20kb' }));
 

@@ -12,9 +12,9 @@ function ContactSection() {
           обращения. На сервере есть повторная валидация и обработка ошибок SMTP.
         </p>
         <ul>
-          <li>Email: developer@example.com</li>
-          <li>Telegram: @developer</li>
-          <li>GitHub: github.com/developer</li>
+          <li>Email:gregoryoganesov@yandex.ru</li>
+          <li>Telegram: @grishiw</li>
+          <li>GitHub: https://github.com/grisha193</li>
         </ul>
       </div>
 

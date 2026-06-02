@@ -46,6 +46,7 @@ GIGACHAT_CLIENT_ID=
 GIGACHAT_CLIENT_SECRET=
 GIGACHAT_SCOPE=GIGACHAT_API_PERS
 GIGACHAT_MODEL=GigaChat-2
+GIGACHAT_IGNORE_TLS_ERRORS=false
 ```
 
 ## Как реализована форма
@@ -72,6 +73,8 @@ GIGACHAT_MODEL=GigaChat-2
 ## Частые проблемы
 
 Если AI-блок пишет, что работает fallback, значит сервер не видит GigaChat-авторизацию. Проверьте, что в корне проекта есть файл `.env`, заполнен `GIGACHAT_API_KEY` или пара `GIGACHAT_CLIENT_ID` + `GIGACHAT_CLIENT_SECRET`, а сервер перезапущен после изменения `.env`.
+
+Если GigaChat падает с `SELF_SIGNED_CERT_IN_CHAIN`, Node.js не доверяет цепочке сертификатов. Для локального демо можно временно поставить `GIGACHAT_IGNORE_TLS_ERRORS=true` в `.env` и перезапустить сервер. Для production лучше оставить `false` и настроить доверенные сертификаты.
 
 Если форма возвращает ошибку `422`, значит не прошла валидация. Комментарий должен быть минимум 10 символов, email должен быть в формате `name@example.com`, телефон должен содержать 7-20 допустимых символов.
 
