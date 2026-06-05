@@ -1,46 +1,39 @@
 # Developer Landing
 
-Небольшой лендинг-презентация fullstack-разработчика с React-фронтендом, API для формы обратной связи и простым AI helper.
+Лендинг-презентация fullstack-разработчика с React frontend, формой обратной связи, serverless API и AI helper через GigaChat.
 
 ## Стек
 
 - Frontend: React, JavaScript, HTML, SCSS
-- Backend/API: Node.js, Express
+- API: Vercel Serverless Functions, Node.js
 - Email: Nodemailer + SMTP
-- AI-интеграция: GigaChat API с fallback-режимом без ключа
+- AI: GigaChat API с fallback-режимом
 - Сборка: Vite
 
-## Как запустить
+## Локальный запуск
 
 ```bash
 npm install
-npm run dev
-```
-
-Проект откроется на `http://localhost:3000`.
-
-Для production-сборки:
-
-```bash
 npm run build
 npm start
 ```
 
-Команда `npm start` отдает собранную папку `dist` через Express.
+Локально проект открывается на `http://localhost:3000`.
 
 ## Переменные окружения
 
-Создайте `.env` по примеру `.env.example`.
+Создайте `.env` локально или добавьте эти переменные в Vercel Project Settings → Environment Variables.
 
 ```env
-PORT=3000
-SITE_OWNER_EMAIL=owner@example.com
-SMTP_HOST=smtp.example.com
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_USER=mailbox@example.com
-SMTP_PASS=strong-password
-SMTP_FROM="Developer Landing <mailbox@example.com>"
+SITE_OWNER_EMAIL=yourmail@yandex.ru
+
+SMTP_HOST=smtp.yandex.ru
+SMTP_PORT=465
+SMTP_SECURE=true
+SMTP_USER=yourmail@yandex.ru
+SMTP_PASS=app-password-from-yandex
+SMTP_FROM="Developer Landing <yourmail@yandex.ru>"
+
 GIGACHAT_API_KEY=
 GIGACHAT_CLIENT_ID=
 GIGACHAT_CLIENT_SECRET=
@@ -49,89 +42,86 @@ GIGACHAT_MODEL=GigaChat-2
 GIGACHAT_IGNORE_TLS_ERRORS=false
 ```
 
-## Как реализована форма
+Для Яндекс Почты в `SMTP_PASS` нужен пароль приложения, а не обычный пароль от почты.
 
-Форма находится в `src/components/ContactForm.jsx`, endpoint находится в `server/index.js`.
+## Форма
 
-Поля формы:
+Форма находится в `src/components/ContactForm.jsx`.
 
-- имя
-- телефон
-- email
-- комментарий
+API для Vercel находится в `api/contact.js`.
 
-На клиенте есть обязательные поля, disabled-состояние кнопки, `loading`, `success` и `error` сообщения. На сервере данные повторно очищаются и валидируются. Если SMTP настроен, сервер отправляет два письма: владельцу сайта и копию пользователю. Если SMTP не настроен, endpoint возвращает demo-ответ `202`, чтобы проект можно было проверить локально без почтового аккаунта.
+Форма отправляет:
+
+- письмо владельцу сайта
+- копию письма пользователю
+
+Есть клиентская и серверная валидация, а также loading, success и error состояния.
 
 ## AI-интеграция
 
-На странице есть блок `AI helper`. Он вызывает `/api/ai-summary`.
+Блок `GigaChat helper` вызывает `/api/ai-summary`.
 
-Если задан `GIGACHAT_API_KEY`, сервер получает OAuth-токен GigaChat, делает запрос к `/chat/completions` и генерирует короткое summary по стеку и опыту. Если ключа нет, возвращается локальный fallback-текст. Это позволяет показать сценарий интеграции и при этом не ломать демо.
+API для Vercel находится в `api/ai-summary.js`.
 
-В `GIGACHAT_API_KEY` нужно положить Authorization Key из кабинета GigaChat. Префикс `Basic` можно не добавлять: сервер добавит его сам. Если в кабинете есть только `Client ID` и `Client Secret`, можно заполнить `GIGACHAT_CLIENT_ID` и `GIGACHAT_CLIENT_SECRET`. Сервер в первую очередь использует пару `Client ID` + `Client Secret`, если она заполнена. Для личного аккаунта используется scope `GIGACHAT_API_PERS`.
+Если GigaChat-ключи не заданы, endpoint возвращает fallback-текст, чтобы демо не ломалось. Если в GigaChat есть только `Client ID` и `Client Secret`, можно заполнить `GIGACHAT_CLIENT_ID` и `GIGACHAT_CLIENT_SECRET`.
 
-## Частые проблемы
+## Деплой на Vercel
 
-Если AI-блок пишет, что работает fallback, значит сервер не видит GigaChat-авторизацию. Проверьте, что в корне проекта есть файл `.env`, заполнен `GIGACHAT_API_KEY` или пара `GIGACHAT_CLIENT_ID` + `GIGACHAT_CLIENT_SECRET`, а сервер перезапущен после изменения `.env`.
+1. Залейте проект на GitHub.
+2. Создайте новый проект на Vercel.
+3. Выберите GitHub-репозиторий.
+4. Framework Preset: `Vite`.
+5. Build Command:
 
-Если GigaChat падает с `SELF_SIGNED_CERT_IN_CHAIN`, Node.js не доверяет цепочке сертификатов. Для локального демо можно временно поставить `GIGACHAT_IGNORE_TLS_ERRORS=true` в `.env` и перезапустить сервер. Для production лучше оставить `false` и настроить доверенные сертификаты.
+```bash
+npm run build
+```
 
-Если форма возвращает ошибку `422`, значит не прошла валидация. Комментарий должен быть минимум 10 символов, email должен быть в формате `name@example.com`, телефон должен содержать 7-20 допустимых символов.
+6. Output Directory:
 
-Если форма пишет demo-режим, значит не заполнены SMTP-переменные. В этом режиме API принимает и валидирует данные, но письма физически не отправляет.
+```text
+dist
+```
+
+7. Добавьте Environment Variables из раздела выше.
+8. Нажмите Deploy.
+
+Файл `vercel.json` уже добавлен: он отдает frontend из `dist` и оставляет `/api/contact` и `/api/ai-summary` как serverless functions.
+
+## Структура
+
+```text
+.
+├── api/
+│   ├── _lib/
+│   ├── ai-summary.js
+│   └── contact.js
+├── server/
+│   └── index.js
+├── src/
+│   ├── components/
+│   ├── data/
+│   ├── styles/
+│   ├── App.jsx
+│   └── main.jsx
+├── .env.example
+├── index.html
+├── package.json
+├── vercel.json
+└── vite.config.js
+```
 
 ## Что делалось с помощью ИИ
 
 - Сформирована структура проекта.
 - Подготовлен текст лендинга под тестовое задание.
 - Реализованы состояния формы и серверная валидация.
-- Добавлен минимальный AI endpoint с безопасным fallback.
-- Подготовлен README с инструкциями запуска.
+- Добавлен API для формы и AI helper.
+- Проект адаптирован под деплой на Vercel.
 
-## Что пришлось исправлять вручную
+## Что исправлялось вручную
 
-- Проект переведен с TypeScript на обычный JavaScript по требованию.
-- Упрощен Vite-конфиг: убран `@vitejs/plugin-react`, потому что локальная установка пакета пришла поврежденной после прерванного `npm install`.
-- Проверена production-сборка через `npm run build`.
-
-## Структура
-
-```text
-.
-├── server/
-│   └── index.js
-├── src/
-│   ├── components/
-│   │   ├── AboutSection.jsx
-│   │   ├── AiSummary.jsx
-│   │   ├── CasesSection.jsx
-│   │   ├── ContactForm.jsx
-│   │   ├── ContactSection.jsx
-│   │   ├── Header.jsx
-│   │   ├── Hero.jsx
-│   │   └── WorkSection.jsx
-│   ├── data/
-│   │   └── portfolio.js
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── styles/
-│       └── main.scss
-├── .env.example
-├── index.html
-├── package.json
-└── vite.config.js
-```
-
-## Деплой
-
-Подойдет Render, Railway, Fly.io или VPS, где можно запустить Node.js сервер.
-
-Команды для деплоя:
-
-```bash
-npm install
-npm run build
-npm start
-```
-
-Перед публикацией нужно добавить SMTP-переменные окружения. Без них форма работает в demo-режиме и письма физически не отправляет.
+- Проект переведен с TypeScript на JavaScript.
+- React-код разбит на компоненты.
+- Express API дополнен serverless functions для Vercel.
+- Добавлены реальные проекты и README-инструкции.
