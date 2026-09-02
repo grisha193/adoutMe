@@ -19,10 +19,10 @@ export const projects = [
     role: 'React, JavaScript, верстка, работа с состояниями интерфейса.',
   },
   {
-    title: 'Portfolio',
+    title: 'SearchMovie',
     type: 'Личный сайт',
-    url: 'https://portfolio-rho-ruddy-55.vercel.app/',
-    text: 'Собрал портфолио с секциями о навыках, проектах и контактах, подготовил страницу к деплою на Vercel.',
+    url: 'https://moviesappsas.netlify.app/',
+    text: 'Разработал приложение для поиска фильмов с интеграцией TMDB API.',
     role: 'Структура страницы, адаптив, визуальное оформление, деплой.',
   },
   {
