@@ -21,6 +21,11 @@ function CasesSection() {
                 Открыть проект
               </a>
             )}
+            {project.githubUrl && (
+              <a className="case-card__link" href={project.githubUrl} target="_blank" rel="noreferrer">
+                GitHub
+              </a>
+            )}
           </article>
         ))}
       </div>

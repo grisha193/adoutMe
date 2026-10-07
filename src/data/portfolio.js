@@ -26,10 +26,12 @@ export const projects = [
     role: 'Структура страницы, адаптив, визуальное оформление, деплой.',
   },
   {
-    title: 'Backend API для контактов',
-    type: 'Практика fullstack',
-    text: 'Реализовывал серверный endpoint, проверку входных данных и отправку email-уведомлений владельцу и пользователю.',
-    role: 'Node.js/Express, структура API, подготовка env-конфига.',
+    title: 'Yandex Reviews',
+    type: 'Fullstack-проект',
+    url: 'https://yandexreviews-production-ef61.up.railway.app/',
+    githubUrl: 'https://github.com/grisha193/yandex_reviews',
+    text: 'Веб-приложение для работы с отзывами Яндекса.',
+    role: 'Разработка fullstack-приложения, интерфейса и серверной логики.',
   },
 ];
 
