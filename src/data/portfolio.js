@@ -14,7 +14,7 @@ export const projects = [
   {
     title: 'Snap',
     type: 'Личный проект',
-    url: 'https://snap-ashy.vercel.app/',
+    url: 'https://snap-uxoc.onrender.com/',
     text: 'Реализовал frontend-часть проекта, адаптивную верстку и пользовательские сценарии.',
     role: 'React, JavaScript, верстка, работа с состояниями интерфейса.',
   },
