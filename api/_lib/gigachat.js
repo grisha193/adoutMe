@@ -71,7 +71,7 @@ async function getGigaChatToken() {
 
 export async function generateGigaChatSummary({ stack, experience, focus }) {
   const accessToken = await getGigaChatToken();
-  const baseUrl = (process.env.GIGACHAT_BASE_URL || 'https://gigachat.devices.sberbank.ru/api/v1').replace(/\/$/, '');
+  const baseUrl = (process.env.GIGACHAT_BASE_URL || 'https://api.giga.chat/v1').replace(/\/$/, '');
 
   const response = await fetch(`${baseUrl}/chat/completions`, {
     method: 'POST',

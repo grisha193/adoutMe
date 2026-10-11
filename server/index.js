@@ -16,7 +16,7 @@ const distDir = path.join(rootDir, 'dist');
 const isProduction = process.env.NODE_ENV === 'production' || process.env.npm_lifecycle_event === 'start';
 
 const gigaChatAuthUrl = process.env.GIGACHAT_AUTH_URL || 'https://ngw.devices.sberbank.ru:9443/api/v2/oauth';
-const gigaChatBaseUrl = (process.env.GIGACHAT_BASE_URL || 'https://gigachat.devices.sberbank.ru/api/v1').replace(/\/$/, '');
+const gigaChatBaseUrl = (process.env.GIGACHAT_BASE_URL || 'https://api.giga.chat/v1').replace(/\/$/, '');
 const gigaChatScope = process.env.GIGACHAT_SCOPE || 'GIGACHAT_API_PERS';
 const gigaChatModel = process.env.GIGACHAT_MODEL || 'GigaChat-2';
 let gigaChatToken = {
