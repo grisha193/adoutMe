@@ -21,9 +21,9 @@ export const projects = [
   {
     title: 'SearchMovie',
     type: 'Личный сайт',
-    url: 'https://moviesappsas.netlify.app/',
-    text: 'Разработал приложение для поиска фильмов с интеграцией TMDB API.',
-    role: 'Структура страницы, адаптив, визуальное оформление, деплой.',
+    url: 'https://lawyerpro.netlify.app/',
+    text: 'Сайт юридических услуг с современным адаптивным дизайном.',
+    role: 'Верстка, интерфейс, адаптивность.',
   },
   {
     title: 'Котобус: все по местам',
