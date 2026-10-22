@@ -19,7 +19,7 @@ export const projects = [
     role: 'React, JavaScript, верстка, работа с состояниями интерфейса.',
   },
   {
-    title: 'SearchMovie',
+    title: 'Lawyerpro',
     type: 'Личный сайт',
     url: 'https://lawyerpro.netlify.app/',
     text: 'Сайт юридических услуг с современным адаптивным дизайном.',
