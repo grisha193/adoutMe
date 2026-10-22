@@ -26,12 +26,11 @@ export const projects = [
     role: 'Структура страницы, адаптив, визуальное оформление, деплой.',
   },
   {
-    title: 'Yandex Reviews',
-    type: 'Fullstack-проект',
-    url: 'https://yandexreviews-production-ef61.up.railway.app/',
-    githubUrl: 'https://github.com/grisha193/yandex_reviews',
-    text: 'Веб-приложение для работы с отзывами Яндекса.',
-    role: 'Разработка fullstack-приложения, интерфейса и серверной логики.',
+    title: 'Котобус: все по местам',
+    type: 'Игра',
+    url: 'https://yandex.ru/games/app/614298?draft=true&lang=ru',
+    text: 'Разработка браузерной игры с уникальной игровой механикой.',
+    role: 'Игровая логика, интерфейс, механики.',
   },
 ];
 
